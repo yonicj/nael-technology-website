@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nael Technology Solutions — Web Platform
+
+Official website and web presence for **Nael Technology Solutions**, built with Next.js, TypeScript, and Tailwind CSS.
+
+## Tech Stack
+
+- **Framework:** [Next.js](https://nextjs.org/) (App Router)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Icons & Utilities:** [clsx](https://github.com/lukeed/clsx), [tailwind-merge](https://github.com/dcastil/tailwind-merge)
+
+## Project Structure
+
+```text
+├── docs/                   # Project documentation and audit records
+│   └── existing-site-audit.md
+├── public/                 # Static assets (favicons, images, logos)
+├── src/
+│   ├── app/                # Next.js App Router (pages, layouts, styles)
+│   │   ├── globals.css     # Global styles & Tailwind layers
+│   │   ├── layout.tsx      # Root layout
+│   │   └── page.tsx        # Homepage
+│   ├── components/         # Modular React components
+│   │   ├── common/         # Shared utility components
+│   │   ├── layout/         # Header, navigation, footer
+│   │   └── ui/             # Design system & primitive UI components
+│   ├── lib/                # Shared utilities and helpers
+│   │   └── utils.ts        # Class merging and formatting utils
+│   └── types/              # TypeScript type definitions
+├── eslint.config.mjs       # ESLint configuration
+├── next.config.ts          # Next.js configuration
+├── package.json            # Project dependencies and npm scripts
+├── postcss.config.mjs      # PostCSS & Tailwind plugins
+└── tsconfig.json           # TypeScript configuration
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js (v18.17+ or later recommended)
+- npm (v9+ or later)
+
+### Installation
+
+```bash
+npm install
+```
+
+### Running Locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+### Code Quality
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Type check
+npx tsc --noEmit
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Lint
+npm run lint
+```

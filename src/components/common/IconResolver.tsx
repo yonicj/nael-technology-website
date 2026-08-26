@@ -1,0 +1,88 @@
+import React from "react";
+import {
+  Camera,
+  Flame,
+  Lock,
+  Cable,
+  Server,
+  Wifi,
+  Video,
+  PhoneCall,
+  Landmark,
+  Activity,
+  Users,
+  Cpu,
+  ShieldAlert,
+  Network,
+  Fingerprint,
+  PhoneForwarded,
+  HardDrive,
+  HeartPulse,
+  ShieldCheck,
+  Handshake,
+  Zap,
+  CheckCircle2,
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  ArrowRight,
+  ExternalLink,
+  ChevronRight,
+  Menu,
+  X,
+  Sparkles,
+  Building,
+  Check,
+  Send,
+  HelpCircle,
+} from "lucide-react";
+
+interface IconProps extends React.SVGProps<SVGSVGElement> {
+  name: string;
+  className?: string;
+}
+
+export const IconResolver: React.FC<IconProps> = ({ name, className, ...props }) => {
+  const iconMap: Record<string, React.ElementType> = {
+    Camera,
+    Flame,
+    Lock,
+    Cable,
+    Server,
+    Wifi,
+    Video,
+    PhoneCall,
+    Landmark,
+    Activity,
+    Users,
+    Cpu,
+    ShieldAlert,
+    Network,
+    Fingerprint,
+    PhoneForwarded,
+    HardDrive,
+    HeartPulse,
+    ShieldCheck,
+    Handshake,
+    Zap,
+    CheckCircle2,
+    Phone,
+    Mail,
+    MapPin,
+    Clock,
+    ArrowRight,
+    ExternalLink,
+    ChevronRight,
+    Menu,
+    X,
+    Sparkles,
+    Building,
+    Check,
+    Send,
+    HelpCircle,
+  };
+
+  const IconComponent = iconMap[name] || ShieldCheck;
+  return <IconComponent className={className} {...props} />;
+};
