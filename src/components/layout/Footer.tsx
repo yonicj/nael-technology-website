@@ -19,7 +19,7 @@ export const Footer: React.FC = () => {
         e.preventDefault();
         element.scrollIntoView({ behavior: "smooth" });
       } else {
-        window.location.href = href === "#home" ? "/" : `/${href}`;
+        window.location.href = href === "#home" ? "/" : `/${targetId}`;
       }
     }
   };

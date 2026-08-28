@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { NAV_ITEMS, SITE_METADATA } from "@/data/site-data";
 import { Menu, X, Phone, ArrowRight, ExternalLink, ShoppingBag } from "lucide-react";
 import { BrandLogo } from "@/components/ui/BrandLogo";
@@ -8,6 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export const Navbar: React.FC = () => {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -16,30 +19,33 @@ export const Navbar: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      // Section spy
-      const sections = NAV_ITEMS.map((item) => item.href.substring(1));
-      const scrollPosition = window.scrollY + 200;
+      // Section spy only on homepage
+      if (pathname === "/") {
+        const sections = NAV_ITEMS.map((item) => item.href.substring(1));
+        const scrollPosition = window.scrollY + 200;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const sectionEl = document.getElementById(sections[i]);
-        if (sectionEl && sectionEl.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const sectionEl = document.getElementById(sections[i]);
+          if (sectionEl && sectionEl.offsetTop <= scrollPosition) {
+            setActiveSection(sections[i]);
+            break;
+          }
         }
       }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith("#")) {
-      const targetId = href.substring(1);
+    setMobileMenuOpen(false);
+    const targetId = href.startsWith("#") ? href.substring(1) : href.replace("/", "");
+
+    if (pathname === "/") {
       const element = document.getElementById(targetId);
       if (element) {
         e.preventDefault();
-        setMobileMenuOpen(false);
         const navOffset = 80;
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - navOffset;
@@ -48,12 +54,25 @@ export const Navbar: React.FC = () => {
           top: offsetPosition,
           behavior: "smooth",
         });
-      } else {
-        // Target element is not on this page (e.g., user is on /services or /solutions)
-        setMobileMenuOpen(false);
-        window.location.href = href === "#home" ? "/" : `/${href}`;
+        return;
       }
     }
+
+    // On inner pages or if element not on page
+    if (href === "#home" || href === "/") {
+      window.location.href = "/";
+    } else {
+      window.location.href = `/${targetId}`;
+    }
+  };
+
+  const isItemActive = (href: string) => {
+    const sectionName = href.startsWith("#") ? href.substring(1) : href.replace("/", "");
+    if (pathname === "/") {
+      return activeSection === sectionName;
+    }
+    if (sectionName === "home") return pathname === "/";
+    return pathname.startsWith(`/${sectionName}`);
   };
 
   return (
@@ -79,7 +98,7 @@ export const Navbar: React.FC = () => {
           {/* Desktop Navigation Links */}
           <nav className="hidden xl:flex items-center gap-1 bg-slate-100/80 dark:bg-slate-900/60 p-1.5 rounded-full border border-slate-200/80 dark:border-slate-800/60 backdrop-blur-md">
             {NAV_ITEMS.map((item) => {
-              const isActive = activeSection === item.href.substring(1);
+              const isActive = isItemActive(item.href);
               return (
                 <a
                   key={item.label}
@@ -166,7 +185,7 @@ export const Navbar: React.FC = () => {
         <div className="xl:hidden bg-white/95 dark:bg-slate-950/95 border-b border-slate-200 dark:border-slate-800 backdrop-blur-xl px-4 pt-3 pb-6 max-h-[calc(100vh-70px)] overflow-y-auto animate-in slide-in-from-top-4 duration-200 shadow-2xl">
           <div className="flex flex-col gap-1 mb-4">
             {NAV_ITEMS.map((item) => {
-              const isActive = activeSection === item.href.substring(1);
+              const isActive = isItemActive(item.href);
               return (
                 <a
                   key={item.label}
