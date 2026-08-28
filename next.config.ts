@@ -9,11 +9,6 @@ const nextConfig: NextConfig = {
         permanent: false,
       },
       {
-        source: "/products",
-        destination: "/#products",
-        permanent: false,
-      },
-      {
         source: "/projects",
         destination: "/#projects",
         permanent: false,

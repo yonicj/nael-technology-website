@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { PRODUCTS_DATA, ProductItem, SITE_METADATA } from "@/data/site-data";
 import { IconResolver } from "@/components/common/IconResolver";
 import { DetailModal } from "@/components/ui/DetailModal";
@@ -97,12 +98,42 @@ export const ProductsSection: React.FC = () => {
                 </ul>
               </CardContent>
 
-              <CardFooter>
-                <span className="text-xs text-amber-600 dark:text-amber-400 font-semibold">View Hardware Specs</span>
-                <ArrowRight className="w-4 h-4 text-amber-600 dark:text-amber-400 group-hover:translate-x-1 transition-transform" />
+              <CardFooter className="flex items-center justify-between gap-2 pt-3 border-t border-slate-100 dark:border-slate-800/80">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveModalItem(product);
+                  }}
+                  className="text-xs text-amber-600 dark:text-amber-400 font-semibold hover:underline inline-flex items-center gap-1"
+                >
+                  <span>Quick Specs</span>
+                </button>
+
+                {product.slug && (
+                  <Link
+                    href={`/products/${product.slug}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500 text-amber-600 hover:text-slate-950 dark:text-amber-400 dark:hover:text-slate-950 text-xs font-semibold transition-all group"
+                  >
+                    <span>Full Specs</span>
+                    <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                  </Link>
+                )}
               </CardFooter>
             </Card>
           ))}
+        </div>
+
+        {/* View All Products Catalog CTA */}
+        <div className="pt-4 text-center">
+          <Link
+            href="/products"
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-950 font-bold text-sm shadow-lg transition-all group"
+          >
+            <span>Explore Complete Hardware & Systems Catalog</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
       </Container>
 

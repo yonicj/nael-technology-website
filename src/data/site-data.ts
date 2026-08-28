@@ -50,6 +50,7 @@ export interface IndustryItem {
 
 export interface ProductItem {
   id: string;
+  slug?: string;
   title: string;
   category: string;
   excerpt: string;
@@ -532,6 +533,7 @@ export const INDUSTRIES_DATA: IndustryItem[] = [
 export const PRODUCTS_DATA: ProductItem[] = [
   {
     id: "commercial-cctv-cameras",
+    slug: "cctv-camera",
     title: "Commercial IP & 4K CCTV Cameras",
     category: "Security Hardware",
     excerpt: "High-definition dome, bullet, and PTZ cameras with smart IR and AI motion detection.",
@@ -549,6 +551,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
   },
   {
     id: "biometric-access-controllers",
+    slug: "access-control-system",
     title: "Biometric & RFID Access Terminals",
     category: "Access Hardware",
     excerpt: "Multi-modal biometric terminals supporting fingerprint, facial recognition, and RFID cards.",
@@ -566,6 +569,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
   },
   {
     id: "fire-alarm-panels-detectors",
+    slug: "fire-detection-suppression",
     title: "Fire Alarm Control Panels & Detectors",
     category: "Fire Safety Hardware",
     excerpt: "Addressable and conventional fire alarm panels, optical smoke detectors, and manual call points.",
@@ -583,6 +587,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
   },
   {
     id: "conference-cameras-speakerphones",
+    slug: "conference-camera",
     title: "Enterprise Conference Cameras & Audio",
     category: "Conferencing AV",
     excerpt: "4K video conference soundbars and PTZ cameras with beamforming microphone arrays.",
@@ -600,6 +605,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
   },
   {
     id: "ip-pabx-telephony-servers",
+    slug: "pabx-system",
     title: "IP-PABX & Business Telephony Servers",
     category: "Telephony Hardware",
     excerpt: "Hybrid and IP-PABX communication servers with multi-line routing and voicemail-to-email.",
@@ -617,6 +623,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
   },
   {
     id: "fiber-optic-cables-racks",
+    slug: "optical-fiber",
     title: "Server Racks & Optical Fiber Enclosures",
     category: "Networking Hardware",
     excerpt: "Heavy-duty server racks, outdoor armored fiber cables, and modular patch panels.",
@@ -634,6 +641,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
   },
   {
     id: "hospital-nurse-call-units",
+    slug: "nurse-call-system",
     title: "Hospital Nurse Call Bedside Stations",
     category: "Healthcare Hardware",
     excerpt: "Antimicrobial patient handset cords, emergency pull stations, and master duty consoles.",
