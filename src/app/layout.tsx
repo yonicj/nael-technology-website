@@ -20,6 +20,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://naeltechnologies.com"),
   title: "Nael Technology Solutions | CCTV, Fire Alarm & IT Infrastructure in Ethiopia",
   description:
     "Nael Technology Solutions is Ethiopia's premier systems integrator specializing in CCTV surveillance, certified fire alarm systems, biometric access control, structured cabling, data centers, and unified communications.",

@@ -13,11 +13,13 @@ export const Footer: React.FC = () => {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith("#")) {
-      e.preventDefault();
       const targetId = href.substring(1);
       const element = document.getElementById(targetId);
       if (element) {
+        e.preventDefault();
         element.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.location.href = href === "#home" ? "/" : `/${href}`;
       }
     }
   };

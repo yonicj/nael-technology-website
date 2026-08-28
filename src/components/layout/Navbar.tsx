@@ -35,11 +35,11 @@ export const Navbar: React.FC = () => {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith("#")) {
-      e.preventDefault();
-      setMobileMenuOpen(false);
       const targetId = href.substring(1);
       const element = document.getElementById(targetId);
       if (element) {
+        e.preventDefault();
+        setMobileMenuOpen(false);
         const navOffset = 80;
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - navOffset;
@@ -48,6 +48,10 @@ export const Navbar: React.FC = () => {
           top: offsetPosition,
           behavior: "smooth",
         });
+      } else {
+        // Target element is not on this page (e.g., user is on /services or /solutions)
+        setMobileMenuOpen(false);
+        window.location.href = href === "#home" ? "/" : `/${href}`;
       }
     }
   };

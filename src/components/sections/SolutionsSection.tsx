@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { SOLUTIONS_DATA, SolutionItem } from "@/data/site-data";
 import { IconResolver } from "@/components/common/IconResolver";
 import { DetailModal } from "@/components/ui/DetailModal";
@@ -84,12 +85,42 @@ export const SolutionsSection: React.FC = () => {
                 </ul>
               </CardContent>
 
-              <CardFooter>
-                <span className="text-xs text-blue-600 dark:text-blue-400 font-semibold">View Architecture</span>
-                <ArrowRight className="w-4 h-4 text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform" />
+              <CardFooter className="flex items-center justify-between gap-2 pt-4 border-t border-slate-100 dark:border-slate-800/80">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveModalItem(solution);
+                  }}
+                  className="text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline inline-flex items-center gap-1"
+                >
+                  <span>Quick Specs</span>
+                </button>
+
+                {solution.slug && (
+                  <Link
+                    href={`/solutions/${solution.slug}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600/10 hover:bg-blue-600 text-blue-600 hover:text-white dark:text-blue-400 dark:hover:text-white text-xs font-semibold transition-all group"
+                  >
+                    <span>Full Blueprint</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                  </Link>
+                )}
               </CardFooter>
             </Card>
           ))}
+        </div>
+
+        {/* View All Solutions Hub CTA */}
+        <div className="pt-8 text-center">
+          <Link
+            href="/solutions"
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-950 font-bold text-sm shadow-lg transition-all group"
+          >
+            <span>Explore All Turnkey Solution Blueprints & Verticals</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
       </Container>
 

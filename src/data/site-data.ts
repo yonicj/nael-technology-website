@@ -28,6 +28,7 @@ export interface ServiceItem {
 
 export interface SolutionItem {
   id: string;
+  slug?: string;
   title: string;
   category: string;
   industry: string;
@@ -363,6 +364,7 @@ export const SERVICES_DATA: ServiceItem[] = [
 export const SOLUTIONS_DATA: SolutionItem[] = [
   {
     id: "datacenter-turnkey-infrastructure",
+    slug: "datacenter-turnkey",
     title: "Data Center Turnkey Infrastructure",
     category: "IT & Telecommunications",
     industry: "Enterprise IT, Telecom & Financial",
@@ -382,6 +384,7 @@ export const SOLUTIONS_DATA: SolutionItem[] = [
   },
   {
     id: "banking-facility-security",
+    slug: "banking-security",
     title: "Banking & Financial Facility Security",
     category: "Physical Security",
     industry: "Banks, Microfinances & Insurance",
@@ -401,6 +404,7 @@ export const SOLUTIONS_DATA: SolutionItem[] = [
   },
   {
     id: "corporate-smart-boardroom",
+    slug: "smart-boardroom",
     title: "Corporate Smart Boardroom & Conferencing",
     category: "Corporate AV",
     industry: "Enterprises, NGOs & Government",
@@ -420,6 +424,7 @@ export const SOLUTIONS_DATA: SolutionItem[] = [
   },
   {
     id: "industrial-perimeter-protection",
+    slug: "industrial-perimeter",
     title: "Industrial & Logistics Perimeter Protection",
     category: "Industrial Security",
     industry: "Factories, Warehouses & Compounds",
@@ -439,6 +444,7 @@ export const SOLUTIONS_DATA: SolutionItem[] = [
   },
   {
     id: "hospital-nurse-call-solution",
+    slug: "nurse-call-system",
     title: "Healthcare Nurse Call & Alert Solution",
     category: "Healthcare Technology",
     industry: "Hospitals, Clinics & Medical Centers",
@@ -458,6 +464,7 @@ export const SOLUTIONS_DATA: SolutionItem[] = [
   },
   {
     id: "campus-unified-network",
+    slug: "campus-network",
     title: "Integrated Campus Voice & High-Speed Data",
     category: "Institutional Network",
     industry: "Universities, Hotels & Office Complexes",
