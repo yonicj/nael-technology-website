@@ -30,16 +30,16 @@ export const HeroSection: React.FC = () => {
       {/* Background Hero Image with Balanced Scrim */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <Image
-          src="/images/hero-infrastructure.jpg"
-          alt="High-tech enterprise technology infrastructure and optical fiber network"
+          src="/images/hero-cctv-surveillance.jpg"
+          alt="Enterprise CCTV video surveillance, security cameras, and AI monitoring technology"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center opacity-85 dark:opacity-75 scale-100 animate-in fade-in duration-1000"
+          className="object-cover object-center opacity-70 dark:opacity-55 scale-100 animate-in fade-in duration-1000"
         />
-        {/* Subtle scrim for high photo visibility in both light and dark modes */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/55 via-white/20 to-slate-50/90 dark:from-slate-950/60 dark:via-slate-950/25 dark:to-slate-950/90" />
-        <div className="absolute inset-0 bg-radial-gradient opacity-15" />
+        {/* Balanced scrims to reveal the camera hardware while maintaining crystal clear text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/35 to-slate-50/95 dark:from-slate-950/80 dark:via-slate-950/50 dark:to-slate-950/95" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/60 via-transparent to-transparent dark:from-slate-950/70 opacity-80" />
       </div>
 
       {/* Grid Pattern overlay */}
