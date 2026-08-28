@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ABOUT_DATA, SITE_METADATA } from "@/data/site-data";
 import { IconResolver } from "@/components/common/IconResolver";
 import { ArrowRight, CheckCircle2, MapPin, ShieldCheck, X } from "lucide-react";
@@ -96,15 +97,13 @@ export const AboutSection: React.FC = () => {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 pt-2">
-              <Button
-                variant="primary"
-                size="md"
-                onClick={() => setModalOpen(true)}
-                rightIcon={<ArrowRight className="w-4 h-4" />}
-                className="w-full sm:w-auto min-h-[44px]"
+              <Link
+                href="/about"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-lg shadow-blue-600/20 transition-all min-h-[44px]"
               >
-                About Nael
-              </Button>
+                <span>About Nael Company</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
               <Button
                 variant="outline"
                 size="md"
@@ -140,43 +139,47 @@ export const AboutSection: React.FC = () => {
               </button>
 
               <Badge variant="cyan" size="sm" className="mb-2">
-                Company Profile
+                Enterprise Profile
               </Badge>
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight pr-8">
-                {SITE_METADATA.name}
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+                {ABOUT_DATA.heading}
               </h3>
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+                {ABOUT_DATA.subtitle}
+              </p>
             </div>
 
-            {/* Body */}
-            <div className="p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6 overflow-y-auto flex-1">
-              <div>
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-2">
-                  Company Overview
-                </h4>
-                <p className="text-slate-700 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
-                  {ABOUT_DATA.description}
+            {/* Scrollable Content */}
+            <div className="p-4 sm:p-6 md:p-8 overflow-y-auto space-y-6 flex-grow">
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-light">
+                {ABOUT_DATA.description}
+              </p>
+
+              {/* Vision Card */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-blue-50/60 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-800/40 space-y-2">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-blue-600 dark:text-blue-400 font-bold block">
+                  Company Vision
+                </span>
+                <p className="text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed italic">
+                  &ldquo;{ABOUT_DATA.vision}&rdquo;
                 </p>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
-                <div className="p-3.5 sm:p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-2">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
-                    Our Vision
-                  </h4>
-                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{ABOUT_DATA.vision}</p>
-                </div>
-                <div className="p-3.5 sm:p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-2">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
-                    Our Mission
-                  </h4>
-                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{ABOUT_DATA.mission}</p>
-                </div>
+              {/* Mission Card */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-cyan-50/60 dark:bg-cyan-950/40 border border-cyan-200/60 dark:border-cyan-800/40 space-y-2">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-cyan-600 dark:text-cyan-400 font-bold block">
+                  Company Mission
+                </span>
+                <p className="text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed">
+                  {ABOUT_DATA.mission}
+                </p>
               </div>
 
-              <div>
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-3">
-                  Core Strategic Pillars
-                </h4>
+              {/* Pillars list */}
+              <div className="space-y-3">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold block">
+                  Strategic Pillars:
+                </span>
                 <div className="space-y-2.5">
                   {ABOUT_DATA.pillars.map((pillar, idx) => (
                     <div
@@ -196,7 +199,13 @@ export const AboutSection: React.FC = () => {
 
             {/* Footer */}
             <div className="p-4 sm:p-6 bg-slate-50 dark:bg-slate-950/80 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 flex-shrink-0">
-              <span className="text-xs text-slate-500 text-center sm:text-left">Awash Building, Addis Ababa</span>
+              <Link
+                href="/about"
+                className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1"
+              >
+                <span>Read Full Company Profile</span>
+                <ArrowRight className="w-3 h-3" />
+              </Link>
               <Button variant="primary" size="sm" onClick={handleContactScroll} className="w-full sm:w-auto">
                 Contact Technical Desk
               </Button>

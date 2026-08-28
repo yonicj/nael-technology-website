@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { PROJECTS_DATA } from "@/data/site-data";
 import { CheckCircle2, ArrowRight, Building } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/Card";
@@ -87,6 +88,17 @@ export const ProjectsSection: React.FC = () => {
               </CardFooter>
             </Card>
           ))}
+        </div>
+
+        {/* View All Projects Portfolio CTA */}
+        <div className="pt-2 text-center">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-lg shadow-blue-600/25 transition-all group"
+          >
+            <span>Explore Complete Projects Portfolio & Blueprints</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
 
         {/* Project Consultation Banner */}
