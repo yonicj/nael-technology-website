@@ -35,10 +35,11 @@ export const HeroSection: React.FC = () => {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center opacity-65 dark:opacity-45 scale-100 animate-in fade-in duration-1000"
+          className="object-cover object-center opacity-85 dark:opacity-75 scale-100 animate-in fade-in duration-1000"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/30 to-slate-50 dark:from-slate-950/80 dark:via-slate-950/50 dark:to-slate-950" />
-        <div className="absolute inset-0 bg-radial-gradient opacity-20" />
+        {/* Subtle scrim for high photo visibility in both light and dark modes */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/55 via-white/20 to-slate-50/90 dark:from-slate-950/60 dark:via-slate-950/25 dark:to-slate-950/90" />
+        <div className="absolute inset-0 bg-radial-gradient opacity-15" />
       </div>
 
       {/* Grid Pattern overlay */}
