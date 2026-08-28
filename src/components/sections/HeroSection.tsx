@@ -54,13 +54,13 @@ export const HeroSection: React.FC = () => {
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.1] transition-colors">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.15] sm:leading-[1.1] transition-colors">
             Building Smarter, Safer &{" "}
             <span className="text-gradient-accent">Connected Environments</span>
           </h1>
 
           {/* Supporting Infrastructure Message */}
-          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 font-light max-w-3xl mx-auto leading-relaxed transition-colors">
+          <p className="text-base sm:text-xl text-slate-600 dark:text-slate-300 font-light max-w-3xl mx-auto leading-relaxed transition-colors px-2 sm:px-0">
             Delivering high-availability <strong className="text-slate-900 dark:text-white font-semibold">network infrastructure</strong>,
             certified <strong className="text-slate-900 dark:text-white font-semibold">fire & physical security</strong>,
             mission-critical <strong className="text-slate-900 dark:text-white font-semibold">data centers</strong>, and
@@ -68,13 +68,13 @@ export const HeroSection: React.FC = () => {
           </p>
 
           {/* Dual CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-2 sm:pt-4 w-full max-w-md sm:max-w-none mx-auto">
             <Button
               variant="primary"
               size="lg"
               onClick={() => handleScrollTo("solutions")}
               rightIcon={<ArrowRight className="w-5 h-5" />}
-              className="w-full sm:w-auto shadow-xl shadow-blue-600/30"
+              className="w-full sm:w-auto shadow-xl shadow-blue-600/30 min-h-[48px]"
             >
               Explore Solutions
             </Button>
@@ -84,39 +84,39 @@ export const HeroSection: React.FC = () => {
               size="lg"
               onClick={() => handleScrollTo("contact")}
               leftIcon={<PhoneCall className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto min-h-[48px]"
             >
               Talk to an Expert
             </Button>
           </div>
 
           {/* Trust Highlights Badges */}
-          <div className="pt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-slate-600 dark:text-slate-400 font-medium">
-            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-sm backdrop-blur-sm">
+          <div className="pt-4 sm:pt-6 flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 font-medium">
+            <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-sm backdrop-blur-sm">
               <ShieldCheck className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
               <span>Certified Safety Compliance</span>
             </span>
-            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-sm backdrop-blur-sm">
+            <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-sm backdrop-blur-sm">
               <Network className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
               <span>Fluke Certified Cabling</span>
             </span>
-            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-sm backdrop-blur-sm">
+            <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-sm backdrop-blur-sm">
               <Lock className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
               <span>Turnkey Systems Integration</span>
             </span>
           </div>
 
           {/* Key Metric Stats Grid */}
-          <div className="pt-12 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 border-t border-slate-200 dark:border-slate-900/80 mt-10">
+          <div className="pt-8 sm:pt-12 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 border-t border-slate-200 dark:border-slate-900/80 mt-6 sm:mt-10">
             {ABOUT_DATA.stats.map((stat, idx) => (
               <div
                 key={idx}
-                className="p-4 rounded-2xl bg-white/70 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/60 shadow-sm backdrop-blur-sm text-center"
+                className="p-3 sm:p-4 rounded-2xl bg-white/70 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/60 shadow-sm backdrop-blur-sm text-center"
               >
-                <div className="text-2xl sm:text-3xl font-extrabold text-blue-600 dark:text-blue-400 tracking-tight">
+                <div className="text-xl sm:text-3xl font-extrabold text-blue-600 dark:text-blue-400 tracking-tight">
                   {stat.value}
                 </div>
-                <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 font-medium">
+                <div className="text-[11px] sm:text-sm text-slate-600 dark:text-slate-400 mt-1 font-medium">
                   {stat.label}
                 </div>
               </div>

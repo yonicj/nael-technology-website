@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import "./globals.css";
@@ -8,6 +8,16 @@ const inter = Inter({
   variable: "--font-sans",
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#060911" },
+    { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
+  ],
+};
 
 export const metadata: Metadata = {
   title: "Nael Technology Solutions | CCTV, Fire Alarm & IT Infrastructure in Ethiopia",

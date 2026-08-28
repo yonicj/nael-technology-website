@@ -62,14 +62,14 @@ export const DetailModal: React.FC<DetailModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/80 backdrop-blur-md transition-all duration-300"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-black/60 dark:bg-black/80 backdrop-blur-md transition-all duration-300"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
       role="dialog"
       aria-modal="true"
     >
-      <div className="relative w-full max-w-2xl overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl shadow-blue-500/10 max-h-[90vh] flex flex-col animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-2xl overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl shadow-blue-500/10 max-h-[92vh] sm:max-h-[90vh] flex flex-col animate-in fade-in zoom-in-95 duration-200">
         {/* Optional Image Header */}
         {image && (
           <div className="relative aspect-[21/9] w-full overflow-hidden border-b border-slate-200 dark:border-slate-800 flex-shrink-0">
@@ -85,36 +85,36 @@ export const DetailModal: React.FC<DetailModalProps> = ({
         )}
 
         {/* Modal Header */}
-        <div className="p-6 md:p-8 bg-gradient-to-r from-slate-50 via-white to-blue-50/50 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/40 border-b border-slate-200 dark:border-slate-800 relative">
+        <div className="p-4 sm:p-6 md:p-8 bg-gradient-to-r from-slate-50 via-white to-blue-50/50 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/40 border-b border-slate-200 dark:border-slate-800 relative flex-shrink-0">
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 z-10 p-2 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+            className="absolute top-3 right-3 sm:top-5 sm:right-5 z-10 p-2 sm:p-2.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer min-w-[36px] min-h-[36px] flex items-center justify-center"
             aria-label="Close dialog"
           >
             <X className="w-5 h-5" />
           </button>
 
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/25 flex items-center justify-center text-blue-600 dark:text-blue-400">
-              <IconResolver name={iconName} className="w-5 h-5" />
+          <div className="flex items-center gap-2.5 sm:gap-3 mb-2 sm:mb-3 pr-10">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-600/15 border border-blue-500/25 flex items-center justify-center text-blue-600 dark:text-blue-400 flex-shrink-0">
+              <IconResolver name={iconName} className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <Badge variant="primary" size="sm">
               {category}
             </Badge>
           </div>
 
-          <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight pr-8">
             {title}
           </h3>
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 md:p-8 space-y-6 overflow-y-auto">
+        <div className="p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6 overflow-y-auto flex-1">
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
               Overview
             </h4>
-            <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-base">{description}</p>
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-sm sm:text-base">{description}</p>
           </div>
 
           {itemsList && itemsList.length > 0 && (
@@ -122,11 +122,11 @@ export const DetailModal: React.FC<DetailModalProps> = ({
               <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
                 {itemsListTitle}
               </h4>
-              <ul className="grid sm:grid-cols-1 gap-2.5">
+              <ul className="grid sm:grid-cols-1 gap-2 sm:gap-2.5">
                 {itemsList.map((item, idx) => (
                   <li
                     key={idx}
-                    className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800/80 text-sm text-slate-800 dark:text-slate-200"
+                    className="flex items-start gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800/80 text-xs sm:text-sm text-slate-800 dark:text-slate-200"
                   >
                     <CheckCircle className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
                     <span>{item}</span>
@@ -141,7 +141,7 @@ export const DetailModal: React.FC<DetailModalProps> = ({
               <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
                 Capabilities & Standards
               </h4>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {tags.map((tag, idx) => (
                   <Badge key={idx} variant="slate" size="sm">
                     {tag}
@@ -153,16 +153,16 @@ export const DetailModal: React.FC<DetailModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="p-6 bg-slate-50 dark:bg-slate-950/80 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-slate-600 dark:text-slate-400 text-center sm:text-left">
+        <div className="p-4 sm:p-6 bg-slate-50 dark:bg-slate-950/80 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 flex-shrink-0">
+          <p className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 text-center sm:text-left">
             Ready to deploy this {itemType}? Contact our Addis Ababa technical engineering desk.
           </p>
-          <div className="flex items-center gap-3 w-full sm:w-auto">
+          <div className="flex items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
             <Button
               variant="outline"
               size="sm"
               onClick={onClose}
-              className="w-1/2 sm:w-auto"
+              className="flex-1 sm:flex-none sm:w-auto"
             >
               Close
             </Button>
@@ -171,7 +171,7 @@ export const DetailModal: React.FC<DetailModalProps> = ({
               size="sm"
               onClick={handleRequestQuote}
               rightIcon={<ArrowRight className="w-4 h-4" />}
-              className="w-1/2 sm:w-auto"
+              className="flex-1 sm:flex-none sm:w-auto"
             >
               Inquire Now
             </Button>

@@ -108,12 +108,13 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                   {service.tagline}
                 </p>
 
-                <div className="flex flex-wrap items-center gap-4 pt-2">
+                <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 pt-2 w-full sm:w-auto">
                   <Button
                     href="/#contact"
                     variant="primary"
                     size="lg"
                     rightIcon={<ArrowRight className="w-4 h-4" />}
+                    className="w-full sm:w-auto min-h-[48px]"
                   >
                     Request Technical Proposal
                   </Button>
@@ -122,6 +123,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                     variant="secondary"
                     size="lg"
                     leftIcon={<PhoneCall className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
+                    className="w-full sm:w-auto min-h-[48px]"
                   >
                     +251 911 438 942
                   </Button>
@@ -318,7 +320,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                   </Link>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-6">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {relatedServicesList.map((rel) => (
                     <Card key={rel.slug} variant="interactive" className="p-6 flex flex-col justify-between">
                       <div className="space-y-3">
@@ -380,7 +382,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         {/* 9. FINAL CTA */}
         <section className="py-20 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900 relative transition-colors">
           <Container size="xl">
-            <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-blue-50 via-slate-100 to-blue-50 dark:from-blue-950/40 dark:via-slate-900 dark:to-blue-950/40 border border-blue-200 dark:border-blue-800/30 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
+            <div className="p-6 sm:p-12 rounded-3xl bg-gradient-to-r from-blue-50 via-slate-100 to-blue-50 dark:from-blue-950/40 dark:via-slate-900 dark:to-blue-950/40 border border-blue-200 dark:border-blue-800/30 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
               <div className="space-y-3 max-w-2xl">
                 <Badge variant="emerald" size="md">
                   Turnkey Engineering Consultation
@@ -394,12 +396,13 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center gap-4 flex-shrink-0">
+              <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto flex-shrink-0">
                 <Button
                   href="/#contact"
                   variant="primary"
                   size="lg"
                   rightIcon={<ArrowRight className="w-4 h-4" />}
+                  className="w-full sm:w-auto min-h-[48px]"
                 >
                   Request Technical Proposal
                 </Button>
@@ -408,6 +411,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                   variant="secondary"
                   size="lg"
                   leftIcon={<PhoneCall className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
+                  className="w-full sm:w-auto min-h-[48px]"
                 >
                   +251 911 438 942
                 </Button>

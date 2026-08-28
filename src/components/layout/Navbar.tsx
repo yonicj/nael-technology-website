@@ -94,7 +94,7 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* Desktop Right CTAs */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden xl:flex items-center gap-3">
             {/* Shop on Jiji Button */}
             <a
               href={SITE_METADATA.jijiShopUrl}
@@ -131,13 +131,23 @@ export const Navbar: React.FC = () => {
             </Button>
           </div>
 
-          {/* Mobile Right Controls: ThemeToggle + Hamburger */}
-          <div className="flex items-center gap-2 lg:hidden">
+          {/* Mobile & Tablet Right Controls: ThemeToggle + Quote CTA + Hamburger */}
+          <div className="flex items-center gap-2 xl:hidden">
             <ThemeToggle size="sm" />
+
+            <Button
+              href="#contact"
+              onClick={(e) => handleNavClick(e as unknown as React.MouseEvent<HTMLAnchorElement>, "#contact")}
+              size="sm"
+              variant="primary"
+              className="hidden sm:inline-flex text-xs px-3 py-1.5"
+            >
+              Get a Quote
+            </Button>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors"
+              className="p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
             >
@@ -147,9 +157,9 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu with Full Viewport & Scroll Safety */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white/95 dark:bg-slate-950/95 border-b border-slate-200 dark:border-slate-800 backdrop-blur-xl px-4 pt-3 pb-6 animate-in slide-in-from-top-4 duration-200 shadow-xl">
+        <div className="xl:hidden bg-white/95 dark:bg-slate-950/95 border-b border-slate-200 dark:border-slate-800 backdrop-blur-xl px-4 pt-3 pb-6 max-h-[calc(100vh-70px)] overflow-y-auto animate-in slide-in-from-top-4 duration-200 shadow-2xl">
           <div className="flex flex-col gap-1 mb-4">
             {NAV_ITEMS.map((item) => {
               const isActive = activeSection === item.href.substring(1);
@@ -158,7 +168,7 @@ export const Navbar: React.FC = () => {
                   key={item.label}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className={`px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+                  className={`px-4 py-3 rounded-xl text-base font-medium transition-colors min-h-[44px] flex items-center ${
                     isActive
                       ? "bg-blue-50 dark:bg-blue-600/20 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-500/30 font-semibold"
                       : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900"
@@ -184,7 +194,7 @@ export const Navbar: React.FC = () => {
               href={SITE_METADATA.jijiShopUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-sm font-semibold"
+              className="flex items-center justify-center gap-2 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-sm font-semibold min-h-[44px]"
             >
               <ShoppingBag className="w-4 h-4" />
               <span>Shop Hardware on Jiji</span>
@@ -193,7 +203,7 @@ export const Navbar: React.FC = () => {
 
             <a
               href="tel:+251911438942"
-              className="flex items-center justify-center gap-2 p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sm font-medium text-slate-800 dark:text-slate-200"
+              className="flex items-center justify-center gap-2 p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sm font-medium text-slate-800 dark:text-slate-200 min-h-[44px]"
             >
               <Phone className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               <span>Call +251 911 438 942</span>
@@ -204,7 +214,7 @@ export const Navbar: React.FC = () => {
               onClick={(e) => handleNavClick(e as unknown as React.MouseEvent<HTMLAnchorElement>, "#contact")}
               size="md"
               variant="primary"
-              className="w-full"
+              className="w-full min-h-[44px]"
             >
               Request Free Proposal
             </Button>

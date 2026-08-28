@@ -122,7 +122,7 @@ export const Footer: React.FC = () => {
                 <Mail className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
                 <a
                   href={`mailto:${SITE_METADATA.contact.email}`}
-                  className="hover:text-slate-900 dark:hover:text-white transition-colors"
+                  className="hover:text-slate-900 dark:hover:text-white transition-colors break-all"
                 >
                   {SITE_METADATA.contact.email}
                 </a>
@@ -136,14 +136,14 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar with Back-to-Top button */}
-        <div className="pt-8 border-t border-slate-200 dark:border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="pt-8 border-t border-slate-200 dark:border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 text-center sm:text-left">
           <p>
             &copy; {new Date().getFullYear()} {SITE_METADATA.name}. All rights reserved.
           </p>
 
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 shadow-sm transition-all group cursor-pointer"
+            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 shadow-sm transition-all group cursor-pointer w-full sm:w-auto min-h-[40px]"
             aria-label="Scroll back to top of page"
           >
             <span>Back to top</span>

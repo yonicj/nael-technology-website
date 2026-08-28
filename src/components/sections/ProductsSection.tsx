@@ -46,12 +46,12 @@ export const ProductsSection: React.FC = () => {
               </p>
             </div>
 
-            <div className="flex-shrink-0">
+            <div className="w-full lg:w-auto flex-shrink-0">
               <a
                 href={SITE_METADATA.jijiShopUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold shadow-xl shadow-amber-500/25 hover:shadow-amber-500/35 transition-all text-base group"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold shadow-xl shadow-amber-500/25 hover:shadow-amber-500/35 transition-all text-sm sm:text-base group min-h-[48px]"
               >
                 <ShoppingBag className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span>Shop Products on Jiji</span>
@@ -62,7 +62,7 @@ export const ProductsSection: React.FC = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {PRODUCTS_DATA.map((product) => (
             <Card
               key={product.id}

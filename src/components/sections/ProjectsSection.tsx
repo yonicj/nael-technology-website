@@ -38,7 +38,7 @@ export const ProjectsSection: React.FC = () => {
           align="center"
         />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {PROJECTS_DATA.map((project) => (
             <Card key={project.id} variant="default" className="flex flex-col justify-between">
               <CardHeader>
@@ -47,7 +47,7 @@ export const ProjectsSection: React.FC = () => {
                     {project.category}
                   </Badge>
                   <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 font-medium">
-                    <Building className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                    <Building className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
                     <span>{project.clientSector}</span>
                   </div>
                 </div>
@@ -90,7 +90,7 @@ export const ProjectsSection: React.FC = () => {
         </div>
 
         {/* Project Consultation Banner */}
-        <div className="p-8 rounded-3xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left shadow-sm">
+        <div className="p-6 sm:p-8 rounded-3xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left shadow-sm">
           <div>
             <h4 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
               Have an upcoming infrastructure or security tender?
@@ -99,7 +99,13 @@ export const ProjectsSection: React.FC = () => {
               Our Addis Ababa engineering desk provides site surveys, technical BOQ preparation, and compliance audits.
             </p>
           </div>
-          <Button variant="primary" size="md" onClick={handleContactScroll} rightIcon={<ArrowRight className="w-4 h-4" />}>
+          <Button
+            variant="primary"
+            size="md"
+            onClick={handleContactScroll}
+            rightIcon={<ArrowRight className="w-4 h-4" />}
+            className="w-full sm:w-auto flex-shrink-0 min-h-[44px]"
+          >
             Request Tender Proposal
           </Button>
         </div>

@@ -121,9 +121,9 @@ export const ContactSection: React.FC = () => {
                     Direct Phone Support Lines:
                   </span>
                   {SITE_METADATA.contact.phones.map((phone, idx) => (
-                    <div key={idx} className="flex items-center justify-between text-xs">
+                    <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 text-xs">
                       <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
-                        <Phone className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                        <Phone className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
                         <a
                           href={`tel:${phone.number.replace(/\s+/g, "")}`}
                           className="font-medium text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
@@ -131,7 +131,7 @@ export const ContactSection: React.FC = () => {
                           {phone.number}
                         </a>
                       </div>
-                      <span className="text-[11px] text-slate-600 dark:text-slate-400 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/50">
+                      <span className="text-[11px] text-slate-600 dark:text-slate-400 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/50 self-start sm:self-auto">
                         {phone.label}
                       </span>
                     </div>
@@ -144,10 +144,10 @@ export const ContactSection: React.FC = () => {
                     Official Email:
                   </span>
                   <div className="flex items-center gap-2 text-xs">
-                    <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                    <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
                     <a
                       href={`mailto:${SITE_METADATA.contact.email}`}
-                      className="text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                      className="text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium break-all"
                     >
                       {SITE_METADATA.contact.email}
                     </a>
@@ -160,7 +160,7 @@ export const ContactSection: React.FC = () => {
                     Office Working Hours:
                   </span>
                   <div className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
-                    <Clock className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                    <Clock className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
                     <span>{SITE_METADATA.contact.workingHours}</span>
                   </div>
                 </div>
