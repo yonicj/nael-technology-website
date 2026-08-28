@@ -27,18 +27,18 @@ export const HeroSection: React.FC = () => {
       id="home"
       className="relative min-h-[92vh] flex items-center justify-center pt-32 pb-20 overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors"
     >
-      {/* Background Hero Image with Dual Gradient Scrim */}
-      <div className="absolute inset-0 z-0">
+      {/* Background Hero Image with Balanced Scrim */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <Image
           src="/images/hero-infrastructure.jpg"
           alt="High-tech enterprise technology infrastructure and optical fiber network"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center opacity-15 dark:opacity-25 scale-105 animate-in fade-in duration-1000"
+          className="object-cover object-center opacity-65 dark:opacity-45 scale-100 animate-in fade-in duration-1000"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-slate-50/80 to-slate-50/90 dark:from-slate-950 dark:via-slate-950/80 dark:to-slate-950/90" />
-        <div className="absolute inset-0 bg-radial-gradient opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/30 to-slate-50 dark:from-slate-950/80 dark:via-slate-950/50 dark:to-slate-950" />
+        <div className="absolute inset-0 bg-radial-gradient opacity-20" />
       </div>
 
       {/* Grid Pattern overlay */}
