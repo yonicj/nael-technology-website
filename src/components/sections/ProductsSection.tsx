@@ -1,112 +1,112 @@
 "use client";
 
 import React, { useState } from "react";
-import { PRODUCTS_DATA, ProductItem } from "@/data/site-data";
+import { PRODUCTS_DATA, ProductItem, SITE_METADATA } from "@/data/site-data";
 import { IconResolver } from "@/components/common/IconResolver";
 import { DetailModal } from "@/components/ui/DetailModal";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShoppingBag, ExternalLink, CheckCircle2 } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Container } from "@/components/ui/Container";
 
 export const ProductsSection: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const [activeModalItem, setActiveModalItem] = useState<ProductItem | null>(null);
 
-  const categories = [
-    "All",
-    "Security Equipment",
-    "Access Hardware",
-    "Fire Safety Hardware",
-    "Conferencing Equipment",
-    "Telephony Hardware",
-    "Networking Equipment",
-  ];
-
-  const filteredProducts = PRODUCTS_DATA.filter((item) =>
-    selectedCategory === "All" ? true : item.category === selectedCategory
-  );
-
   return (
-    <section id="products" className="py-24 bg-slate-950 relative overflow-hidden border-t border-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
-          <span className="text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
-            Hardware Catalog
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Commercial Equipment & Hardware
-          </h2>
-          <p className="text-base sm:text-lg text-slate-400 leading-relaxed">
-            Direct supply and certified installation of commercial surveillance cameras, biometric terminals, fire alarm panels, server racks, and enterprise IP-PABX units.
-          </p>
-        </div>
+    <section id="products" className="py-24 bg-slate-50 dark:bg-slate-950 relative overflow-hidden border-t border-slate-200 dark:border-slate-900 transition-colors">
+      {/* Background ambient glow */}
+      <div className="absolute top-1/2 right-0 w-96 h-96 bg-amber-600/5 blur-[140px] rounded-full pointer-events-none" />
 
-        {/* Filter Chips */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all ${
-                selectedCategory === cat
-                  ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20"
-                  : "bg-slate-900 border border-slate-800 text-slate-400 hover:text-white"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+      <Container size="xl" className="relative z-10 space-y-16">
+        <SectionHeader
+          badge="Hardware & Equipment"
+          badgeVariant="amber"
+          title="Enterprise Hardware Equipment"
+          titleAccent="& Systems"
+          description="Enterprise-grade physical security, life safety, networking, and conferencing hardware backed by official warranty and local support in Addis Ababa."
+          align="center"
+        />
+
+        {/* Featured Jiji Store Banner Callout */}
+        <div className="relative rounded-3xl overflow-hidden border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-slate-100 dark:from-slate-900 dark:via-amber-950/20 dark:to-slate-900 p-8 sm:p-10 shadow-2xl shadow-amber-500/5">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 blur-[100px] pointer-events-none" />
+
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="space-y-3 text-center lg:text-left max-w-2xl">
+              <Badge variant="amber" size="md" withPulse={true}>
+                Official Hardware Marketplace
+              </Badge>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                Shop Nael Technology Products on Jiji Ethiopia
+              </h3>
+              <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-light">
+                Browse our verified catalog of CCTV security cameras, biometric access control devices,
+                fire alarm equipment, server racks, and PABX telephony units directly on our official Jiji shop.
+              </p>
+            </div>
+
+            <div className="flex-shrink-0">
+              <a
+                href={SITE_METADATA.jijiShopUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold shadow-xl shadow-amber-500/25 hover:shadow-amber-500/35 transition-all text-base group"
+              >
+                <ShoppingBag className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <span>Shop Products on Jiji</span>
+                <ExternalLink className="w-4 h-4 opacity-80 group-hover:translate-x-0.5 transition-transform" />
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Products Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProducts.map((product) => (
-            <div
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {PRODUCTS_DATA.map((product) => (
+            <Card
               key={product.id}
-              className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800/80 hover:border-blue-500/40 hover:bg-slate-900 transition-all duration-300 flex flex-col justify-between group shadow-lg shadow-black/20"
+              variant="interactive"
+              className="cursor-pointer"
+              onClick={() => setActiveModalItem(product)}
             >
-              <div>
-                <div className="flex items-center justify-between mb-5">
-                  <div className="w-12 h-12 rounded-xl bg-blue-600/15 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
-                    <IconResolver name={product.iconName} className="w-6 h-6" />
+              <CardHeader>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-600 dark:text-amber-400">
+                    <IconResolver name={product.iconName} className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700/60">
+                  <Badge variant="slate" size="sm">
                     {product.category}
-                  </span>
+                  </Badge>
                 </div>
+                <CardTitle className="text-base">{product.title}</CardTitle>
+                <CardDescription className="text-xs">{product.excerpt}</CardDescription>
+              </CardHeader>
 
-                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
-                  {product.title}
-                </h3>
-
-                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed mb-4">
-                  {product.excerpt}
-                </p>
-
-                <div className="space-y-1.5 mb-6">
+              <CardContent className="space-y-2">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1">
+                  Specifications:
+                </span>
+                <ul className="space-y-1">
                   {product.specs.slice(0, 3).map((spec, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs text-slate-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0" />
+                    <li key={idx} className="flex items-start gap-1.5 text-xs text-slate-700 dark:text-slate-300">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400/80 flex-shrink-0 mt-0.5" />
                       <span className="line-clamp-1">{spec}</span>
-                    </div>
+                    </li>
                   ))}
-                </div>
-              </div>
+                </ul>
+              </CardContent>
 
-              <div className="pt-4 border-t border-slate-800">
-                <button
-                  onClick={() => setActiveModalItem(product)}
-                  className="w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white text-xs font-semibold transition-all flex items-center justify-center gap-2 group/btn"
-                >
-                  <span>Technical Specs</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
-                </button>
-              </div>
-            </div>
+              <CardFooter>
+                <span className="text-xs text-amber-600 dark:text-amber-400 font-semibold">View Hardware Specs</span>
+                <ArrowRight className="w-4 h-4 text-amber-600 dark:text-amber-400 group-hover:translate-x-1 transition-transform" />
+              </CardFooter>
+            </Card>
           ))}
         </div>
-      </div>
+      </Container>
 
-      {/* Modal Dialog */}
+      {/* Universal Detail Modal */}
       {activeModalItem && (
         <DetailModal
           isOpen={!!activeModalItem}
@@ -114,7 +114,7 @@ export const ProductsSection: React.FC = () => {
           title={activeModalItem.title}
           category={activeModalItem.category}
           description={activeModalItem.description}
-          itemsListTitle="Technical Specifications"
+          itemsListTitle="Hardware Specifications & Features"
           itemsList={activeModalItem.specs}
           tags={activeModalItem.tags}
           iconName={activeModalItem.iconName}

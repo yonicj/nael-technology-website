@@ -1,97 +1,112 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { SOLUTIONS_DATA, SolutionItem } from "@/data/site-data";
 import { IconResolver } from "@/components/common/IconResolver";
 import { DetailModal } from "@/components/ui/DetailModal";
-import { ArrowRight, Building2, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Building2 } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Container } from "@/components/ui/Container";
 
 export const SolutionsSection: React.FC = () => {
   const [activeModalItem, setActiveModalItem] = useState<SolutionItem | null>(null);
 
   return (
-    <section id="solutions" className="py-24 bg-slate-900/40 relative overflow-hidden border-t border-slate-800/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <span className="text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-            Turnkey Solutions
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Industry-Packaged Systems Integration
-          </h2>
-          <p className="text-base sm:text-lg text-slate-400 leading-relaxed">
-            Tailored, multi-disciplinary technology packages purpose-built for financial institutions, hospitals, enterprise headquarters, and industrial campuses.
-          </p>
-        </div>
+    <section id="solutions" className="py-24 bg-slate-50 dark:bg-slate-950 relative overflow-hidden border-t border-slate-200 dark:border-slate-900 transition-colors">
+      {/* Background ambient glow */}
+      <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-blue-600/10 blur-[140px] rounded-full pointer-events-none" />
 
-        {/* Solutions Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <Container size="xl" className="relative z-10">
+        <SectionHeader
+          badge="Turnkey Solutions"
+          badgeVariant="cyan"
+          title="Engineered Turnkey Solutions"
+          titleAccent="by Vertical"
+          description="Pre-architected, integrated systems combining cabling, security hardware, power conditioning, and management consoles for Ethiopian enterprises."
+          align="center"
+        />
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {SOLUTIONS_DATA.map((solution) => (
-            <div
+            <Card
               key={solution.id}
-              className="p-8 rounded-2xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 transition-all duration-300 flex flex-col justify-between group shadow-xl shadow-black/20"
+              variant="interactive"
+              className="cursor-pointer"
+              onClick={() => setActiveModalItem(solution)}
             >
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-14 h-14 rounded-2xl bg-cyan-600/15 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform">
-                    <IconResolver name={solution.iconName} className="w-7 h-7" />
+              {/* Optional Preview Image if available */}
+              {solution.image && (
+                <div className="relative aspect-video w-full overflow-hidden border-b border-slate-200 dark:border-slate-800">
+                  <Image
+                    src={solution.image}
+                    alt={solution.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 dark:from-slate-900 via-transparent to-transparent opacity-80" />
+                </div>
+              )}
+
+              <CardHeader>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/25 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                    <IconResolver name={solution.iconName} className="w-5 h-5" />
                   </div>
-                  <span className="text-[11px] font-semibold text-cyan-400 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-800/60">
+                  <Badge variant="slate" size="sm">
                     {solution.category}
-                  </span>
+                  </Badge>
                 </div>
 
-                <div className="text-xs font-medium text-slate-400 mb-2 flex items-center gap-1.5">
-                  <Building2 className="w-3.5 h-3.5 text-slate-500" />
+                <div className="flex items-center gap-1.5 text-[11px] text-blue-600 dark:text-blue-400 font-semibold uppercase tracking-wider mb-1">
+                  <Building2 className="w-3.5 h-3.5" />
                   <span>{solution.industry}</span>
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
-                  {solution.title}
-                </h3>
+                <CardTitle className="text-lg">{solution.title}</CardTitle>
+                <CardDescription>{solution.excerpt}</CardDescription>
+              </CardHeader>
 
-                <p className="text-sm text-slate-400 leading-relaxed mb-6">
-                  {solution.excerpt}
-                </p>
-
-                <div className="space-y-2 mb-6">
+              <CardContent className="space-y-2">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1">
+                  Key Deliverables:
+                </span>
+                <ul className="space-y-1.5">
                   {solution.deliverables.slice(0, 3).map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-300">
-                      <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5" />
-                      <span>{item}</span>
-                    </div>
+                    <li key={idx} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                      <span className="line-clamp-1">{item}</span>
+                    </li>
                   ))}
-                </div>
-              </div>
+                </ul>
+              </CardContent>
 
-              <div className="pt-6 border-t border-slate-800">
-                <button
-                  onClick={() => setActiveModalItem(solution)}
-                  className="w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white text-xs font-semibold transition-all flex items-center justify-center gap-2 group/btn"
-                >
-                  <span>Explore Solution Architecture</span>
-                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                </button>
-              </div>
-            </div>
+              <CardFooter>
+                <span className="text-xs text-blue-600 dark:text-blue-400 font-semibold">View Architecture</span>
+                <ArrowRight className="w-4 h-4 text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform" />
+              </CardFooter>
+            </Card>
           ))}
         </div>
-      </div>
+      </Container>
 
-      {/* Modal View */}
+      {/* Universal Detail Modal */}
       {activeModalItem && (
         <DetailModal
           isOpen={!!activeModalItem}
           onClose={() => setActiveModalItem(null)}
           title={activeModalItem.title}
-          category={activeModalItem.category}
+          category={activeModalItem.industry}
           description={activeModalItem.description}
-          itemsListTitle="Core System Deliverables"
+          itemsListTitle="Turnkey Scope of Deliverables"
           itemsList={activeModalItem.deliverables}
           tags={activeModalItem.tags}
           iconName={activeModalItem.iconName}
           itemType="solution"
+          image={activeModalItem.image}
         />
       )}
     </section>

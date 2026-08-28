@@ -2,7 +2,9 @@
 
 import React from "react";
 import { SITE_METADATA, NAV_ITEMS, SERVICES_DATA } from "@/data/site-data";
-import { Shield, ArrowUp, Phone, Mail, MapPin, Clock } from "lucide-react";
+import { ArrowUp, Phone, Mail, MapPin, Clock, ExternalLink, ShoppingBag } from "lucide-react";
+import { BrandLogo } from "@/components/ui/BrandLogo";
+import { Container } from "@/components/ui/Container";
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -10,52 +12,59 @@ export const Footer: React.FC = () => {
   };
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const targetId = href.substring(1);
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.substring(1);
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
   return (
-    <footer className="bg-slate-950 border-t border-slate-900 text-slate-400 relative pt-16 pb-12 overflow-hidden">
+    <footer className="bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900 text-slate-600 dark:text-slate-400 relative pt-16 pb-12 overflow-hidden transition-colors">
       {/* Background ambient glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-blue-900/10 blur-3xl pointer-events-none rounded-full" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-blue-600/5 dark:bg-blue-900/10 blur-3xl pointer-events-none rounded-full" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <Container size="xl" className="relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           {/* Column 1: Company Profile */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
-                <Shield className="w-6 h-6" />
-              </div>
-              <div>
-                <span className="text-xl font-bold text-white tracking-tight block">
-                  {SITE_METADATA.name}
-                </span>
-                <span className="text-[11px] uppercase font-semibold text-blue-400 tracking-wider block">
-                  Technology Systems Integrator
-                </span>
-              </div>
-            </div>
+            <BrandLogo size="md" />
 
-            <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm">
               Ethiopia&apos;s trusted technology systems integrator specializing in CCTV video
-              surveillance, fire alarm engineering, biometric access control, data centers, and
+              surveillance, certified fire alarms, biometric access control, data centers, structured cabling, and
               unified enterprise communications.
             </p>
 
+            {/* Jiji Store Link */}
+            <div className="pt-1">
+              <a
+                href={SITE_METADATA.jijiShopUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-xs font-semibold transition-all group"
+              >
+                <ShoppingBag className="w-4 h-4 text-amber-600 dark:text-amber-400 group-hover:scale-110 transition-transform" />
+                <span>Visit Nael Official Store on Jiji</span>
+                <ExternalLink className="w-3.5 h-3.5 text-amber-600/80 dark:text-amber-400/80" />
+              </a>
+            </div>
+
             <div className="pt-2 text-xs text-slate-500 space-y-1">
-              <p>Certified Engineering & Safety Compliance</p>
-              <p>Addis Ababa, Ethiopia</p>
+              <p className="flex items-center gap-1.5 text-slate-700 dark:text-slate-400 font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
+                <span>Certified Engineering & Safety Compliance</span>
+              </p>
+              <p>Awash Building 1st Floor, Addis Ababa, Ethiopia</p>
             </div>
           </div>
 
           {/* Column 2: Navigation Links */}
           <div>
-            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">
               Navigation
             </h3>
             <ul className="space-y-2.5 text-sm">
@@ -64,7 +73,7 @@ export const Footer: React.FC = () => {
                   <a
                     href={item.href}
                     onClick={(e) => handleNavClick(e, item.href)}
-                    className="hover:text-blue-400 transition-colors inline-block"
+                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors inline-block"
                   >
                     {item.label}
                   </a>
@@ -75,7 +84,7 @@ export const Footer: React.FC = () => {
 
           {/* Column 3: Core Engineering Services */}
           <div>
-            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">
               Core Services
             </h3>
             <ul className="space-y-2.5 text-sm">
@@ -84,7 +93,7 @@ export const Footer: React.FC = () => {
                   <a
                     href="#services"
                     onClick={(e) => handleNavClick(e, "#services")}
-                    className="hover:text-blue-400 transition-colors line-clamp-1"
+                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors line-clamp-1"
                   >
                     {service.title}
                   </a>
@@ -95,31 +104,31 @@ export const Footer: React.FC = () => {
 
           {/* Column 4: Contact & Office */}
           <div>
-            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">
               Direct Contact
             </h3>
             <ul className="space-y-3 text-xs">
               <li className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
                 <span>{SITE_METADATA.contact.address}</span>
               </li>
               <li className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-blue-400 flex-shrink-0" />
-                <a href="tel:+251911438942" className="hover:text-white transition-colors">
+                <Phone className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+                <a href="tel:+251911438942" className="hover:text-slate-900 dark:hover:text-white transition-colors">
                   +251 911 438 942
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                <Mail className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
                 <a
                   href={`mailto:${SITE_METADATA.contact.email}`}
-                  className="hover:text-white transition-colors"
+                  className="hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
                   {SITE_METADATA.contact.email}
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <Clock className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                <Clock className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
                 <span>{SITE_METADATA.contact.workingHours}</span>
               </li>
             </ul>
@@ -127,21 +136,21 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar with Back-to-Top button */}
-        <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="pt-8 border-t border-slate-200 dark:border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>
             &copy; {new Date().getFullYear()} {SITE_METADATA.name}. All rights reserved.
           </p>
 
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition-all group"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 shadow-sm transition-all group cursor-pointer"
             aria-label="Scroll back to top of page"
           >
             <span>Back to top</span>
-            <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform text-blue-400" />
+            <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform text-blue-600 dark:text-blue-400" />
           </button>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 };

@@ -2,7 +2,25 @@
 
 import React, { useState } from "react";
 import { SITE_METADATA } from "@/data/site-data";
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle2 } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  Clock,
+  Send,
+  CheckCircle2,
+  ShieldCheck,
+  ExternalLink,
+  ShoppingBag,
+} from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
+import { FormField } from "@/components/ui/FormField";
+import { Input } from "@/components/ui/Input";
+import { Textarea } from "@/components/ui/Textarea";
+import { Select } from "@/components/ui/Select";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Container } from "@/components/ui/Container";
 
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -10,306 +28,332 @@ export const ContactSection: React.FC = () => {
     email: "",
     phone: "",
     company: "",
-    serviceInterest: "CCTV & Video Surveillance",
+    service: "",
     message: "",
   });
 
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submittedSuccess, setSubmittedSuccess] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+  const serviceOptions = [
+    { value: "cctv-surveillance", label: "CCTV & Video Surveillance" },
+    { value: "fire-alarm", label: "Fire Alarm & Safety Detection" },
+    { value: "access-control", label: "Biometric Access Control & Attendance" },
+    { value: "structured-cabling", label: "Structured Cabling & Fiber Optics" },
+    { value: "data-center", label: "Data Center Infrastructure & Power" },
+    { value: "wireless-networking", label: "Enterprise Wi-Fi & Switching" },
+    { value: "video-conferencing", label: "Audio & Video Conferencing" },
+    { value: "telephony-pabx", label: "IP-PABX & Call Center Solutions" },
+    { value: "nurse-call", label: "Hospital Nurse Call Systems" },
+    { value: "general-inquiry", label: "General Project Consultation / BOQ" },
+  ];
+
+  const validate = () => {
+    const errors: Record<string, string> = {};
+    if (!formData.name.trim()) errors.name = "Full name is required.";
+    if (!formData.email.trim()) {
+      errors.email = "Email address is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = "Please enter a valid email address.";
+    }
+    if (!formData.message.trim()) errors.message = "Project requirements or message is required.";
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    if (!validate()) return;
 
-    // Simulate reliable form submission state
+    setIsSubmitting(true);
+    // Simulate submission processing
     setTimeout(() => {
       setIsSubmitting(false);
-      setSubmittedSuccess(true);
+      setSubmitSuccess(true);
       setFormData({
         name: "",
         email: "",
         phone: "",
         company: "",
-        serviceInterest: "CCTV & Video Surveillance",
+        service: "",
         message: "",
       });
     }, 1200);
   };
 
   return (
-    <section id="contact" className="py-24 bg-slate-950 relative overflow-hidden border-t border-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <span className="text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
-            Contact & Consultation
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Let&apos;s Engineer Your Technology Solution
-          </h2>
-          <p className="text-base sm:text-lg text-slate-400 leading-relaxed">
-            Reach out to our technical engineering team in Addis Ababa for project estimates, site surveys, RFP tenders, and systems maintenance.
-          </p>
-        </div>
+    <section id="contact" className="py-24 bg-slate-50 dark:bg-slate-950 relative overflow-hidden border-t border-slate-200 dark:border-slate-900 transition-colors">
+      {/* Background ambient glow */}
+      <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
 
-        <div className="grid lg:grid-cols-12 gap-12 items-start">
-          {/* Left Column: Interactive Proposal / Quote Form */}
-          <div className="lg:col-span-7 bg-slate-900/90 border border-slate-800/90 rounded-3xl p-8 sm:p-10 shadow-2xl shadow-black/40">
-            <h3 className="text-2xl font-bold text-white mb-2">
-              Request a Technical Proposal & Quote
-            </h3>
-            <p className="text-sm text-slate-400 mb-8">
-              Fill in your project requirements below. Our senior engineering team will respond within 24 hours.
-            </p>
+      <Container size="xl" className="relative z-10 space-y-16">
+        <SectionHeader
+          badge="Get in Touch"
+          badgeVariant="primary"
+          title="Connect with Our Addis Ababa"
+          titleAccent="Technical Engineering Desk"
+          description="Request a turnkey project consultation, schedule an on-site facility survey, or inquire about enterprise hardware pricing and specifications."
+          align="center"
+        />
 
-            {submittedSuccess ? (
-              <div className="p-8 rounded-2xl bg-blue-950/40 border border-blue-500/30 text-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
-                <div className="w-16 h-16 rounded-full bg-blue-600/20 border border-blue-500/40 text-blue-400 flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-8 h-8" />
-                </div>
-                <h4 className="text-xl font-bold text-white">
-                  Inquiry Received Successfully!
-                </h4>
-                <p className="text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
-                  Thank you for contacting Nael Technology Solutions. Our technical team is reviewing your project details and will be in touch shortly.
-                </p>
-                <button
-                  onClick={() => setSubmittedSuccess(false)}
-                  className="px-6 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold transition-colors mt-2"
-                >
-                  Send Another Inquiry
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block text-xs font-medium uppercase tracking-wider text-slate-300 mb-2">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="e.g. Abebe Bikila"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium uppercase tracking-wider text-slate-300 mb-2">
-                      Corporate / Personal Email *
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="name@company.com"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block text-xs font-medium uppercase tracking-wider text-slate-300 mb-2">
-                      Phone Number *
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      required
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="+251 91 234 5678"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium uppercase tracking-wider text-slate-300 mb-2">
-                      Company / Organization
-                    </label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      placeholder="Organization Name"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-medium uppercase tracking-wider text-slate-300 mb-2">
-                    Primary Service / Solution Needed
-                  </label>
-                  <select
-                    name="serviceInterest"
-                    value={formData.serviceInterest}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
-                  >
-                    <option value="CCTV & Video Surveillance">CCTV & Video Surveillance Systems</option>
-                    <option value="Fire Alarm & Detection">Fire Alarm & Detection Systems</option>
-                    <option value="Access Control & Biometrics">Access Control & Biometrics</option>
-                    <option value="Structured Cabling & Fiber">Structured Cabling & Fiber Optics</option>
-                    <option value="Data Center Infrastructure">Data Center Infrastructure</option>
-                    <option value="Audio & Video Conferencing">Audio & Video Conferencing</option>
-                    <option value="Telephony & Call Center">IP-PABX & Call Center Systems</option>
-                    <option value="Healthcare Nurse Call">Hospital Nurse Call Solution</option>
-                    <option value="Complete Enterprise Turnkey">Complete Enterprise Turnkey Solution</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-medium uppercase tracking-wider text-slate-300 mb-2">
-                    Project Scope, Location & Timeline *
-                  </label>
-                  <textarea
-                    name="message"
-                    required
-                    rows={4}
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Provide details about your facility, number of channels/devices, timeline, or specific compliance requirements..."
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-xl shadow-blue-600/30 hover:shadow-blue-600/40 transition-all flex items-center justify-center gap-2 text-base disabled:opacity-50"
-                >
-                  {isSubmitting ? (
-                    <span>Submitting Technical Request...</span>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4" />
-                      <span>Send Project Request</span>
-                    </>
-                  )}
-                </button>
-
-                {/* Quick Response Notice */}
-                <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-400 flex items-start gap-3">
-                  <Clock className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <span className="font-semibold text-slate-200">
-                      24-Hour Engineering Response Guarantee:
-                    </span>{" "}
-                    We review and reply to all technical inquiries within one business day. For urgent emergencies, please call directly.
-                  </div>
-                </div>
-              </form>
-            )}
-          </div>
-
-          {/* Right Column: Direct Channels & Live Map */}
+        <div className="grid lg:grid-cols-12 gap-10 items-start">
+          {/* Left Column: Direct Contact Information & Location Map */}
           <div className="lg:col-span-5 space-y-6">
-            {/* Direct Phone Numbers */}
-            <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4 shadow-xl">
-              <h4 className="text-base font-bold text-white flex items-center gap-2">
-                <Phone className="w-4 h-4 text-blue-400" />
-                <span>Direct Telephone Channels</span>
-              </h4>
+            <Card variant="glass" className="space-y-6 p-6 sm:p-8">
+              <div>
+                <Badge variant="cyan" size="sm" className="mb-2">
+                  Headquarters
+                </Badge>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                  Nael Technology Solutions
+                </h3>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                  Awash Building 1st Floor, Addis Ababa, Ethiopia
+                </p>
+              </div>
 
-              <div className="space-y-2.5">
-                {SITE_METADATA.contact.phones.map((p, idx) => (
-                  <div
-                    key={idx}
-                    className="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 flex items-center justify-between"
-                  >
-                    <div>
-                      <span className="text-xs text-slate-400 block">{p.label}</span>
-                      <a
-                        href={`tel:${p.number.replace(/\s+/g, "")}`}
-                        className="text-sm font-bold text-white hover:text-blue-400 transition-colors"
-                      >
-                        {p.number}
-                      </a>
+              {/* Verified Direct Channels */}
+              <div className="space-y-4 border-t border-slate-200 dark:border-slate-800/80 pt-4">
+                {/* Phones */}
+                <div className="space-y-2">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
+                    Direct Phone Support Lines:
+                  </span>
+                  {SITE_METADATA.contact.phones.map((phone, idx) => (
+                    <div key={idx} className="flex items-center justify-between text-xs">
+                      <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                        <Phone className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                        <a
+                          href={`tel:${phone.number.replace(/\s+/g, "")}`}
+                          className="font-medium text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                        >
+                          {phone.number}
+                        </a>
+                      </div>
+                      <span className="text-[11px] text-slate-600 dark:text-slate-400 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/50">
+                        {phone.label}
+                      </span>
                     </div>
+                  ))}
+                </div>
+
+                {/* Email */}
+                <div className="space-y-1.5 pt-2 border-t border-slate-200 dark:border-slate-800/80">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
+                    Official Email:
+                  </span>
+                  <div className="flex items-center gap-2 text-xs">
+                    <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                     <a
-                      href={`tel:${p.number.replace(/\s+/g, "")}`}
-                      className="px-3 py-1 rounded-lg bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white text-xs font-semibold transition-colors"
+                      href={`mailto:${SITE_METADATA.contact.email}`}
+                      className="text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
                     >
-                      Call
+                      {SITE_METADATA.contact.email}
                     </a>
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
 
-            {/* Email & Office Address */}
-            <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4 shadow-xl">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/20 flex items-center justify-center text-blue-400 flex-shrink-0">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="text-xs text-slate-400 block">Official Emails</span>
-                  <a
-                    href={`mailto:${SITE_METADATA.contact.email}`}
-                    className="text-sm font-bold text-white hover:text-blue-400 transition-colors block"
-                  >
-                    {SITE_METADATA.contact.email}
-                  </a>
-                  <a
-                    href={`mailto:${SITE_METADATA.contact.secondaryEmail}`}
-                    className="text-xs text-slate-400 hover:text-slate-300 transition-colors"
-                  >
-                    {SITE_METADATA.contact.secondaryEmail}
-                  </a>
-                </div>
-              </div>
-
-              <div className="pt-3 border-t border-slate-800 flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/20 flex items-center justify-center text-blue-400 flex-shrink-0">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="text-xs text-slate-400 block">Office Location</span>
-                  <p className="text-sm font-semibold text-slate-200">
-                    {SITE_METADATA.contact.address}
-                  </p>
-                  <span className="text-xs text-slate-400 mt-0.5 block">
-                    {SITE_METADATA.contact.workingHours}
+                {/* Working Hours */}
+                <div className="space-y-1.5 pt-2 border-t border-slate-200 dark:border-slate-800/80">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
+                    Office Working Hours:
                   </span>
+                  <div className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
+                    <Clock className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                    <span>{SITE_METADATA.contact.workingHours}</span>
+                  </div>
+                </div>
+
+                {/* Jiji Official Store Callout */}
+                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 space-y-2 pt-3">
+                  <div className="flex items-center gap-2 text-xs font-bold text-amber-700 dark:text-amber-400">
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>Looking to buy hardware directly?</span>
+                  </div>
+                  <p className="text-[11px] text-slate-700 dark:text-slate-300">
+                    View verified stock of CCTV cameras, PABX units, biometric access readers, and fire alarms on Jiji.
+                  </p>
+                  <a
+                    href={SITE_METADATA.jijiShopUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-700 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 transition-colors"
+                  >
+                    <span>Visit Official Jiji Store</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
                 </div>
               </div>
-            </div>
+            </Card>
 
-            {/* Google Map Embed */}
-            <div className="rounded-2xl overflow-hidden border border-slate-800 h-64 bg-slate-900 shadow-xl">
+            {/* Embedded Google Map */}
+            <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 h-56 relative shadow-lg">
               <iframe
                 src={SITE_METADATA.contact.mapEmbedUrl}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
-                allowFullScreen={true}
+                allowFullScreen={false}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Nael Technology Solutions Addis Ababa Office Location"
+                title="Nael Technology Solutions Addis Ababa Office Location Map"
+                className="grayscale contrast-125 dark:opacity-90 opacity-95"
               />
             </div>
           </div>
+
+          {/* Right Column: Interactive Consultation & Quote Form */}
+          <div className="lg:col-span-7">
+            <Card variant="glass" className="p-6 sm:p-10">
+              <CardHeader className="p-0 pb-6 space-y-2">
+                <Badge variant="primary" size="sm">
+                  Inquiry Form
+                </Badge>
+                <CardTitle className="text-2xl sm:text-3xl">
+                  Request a Free Technical Proposal
+                </CardTitle>
+                <CardDescription>
+                  Provide your site details below and an engineer will get back to you within 24 hours.
+                </CardDescription>
+              </CardHeader>
+
+              {submitSuccess ? (
+                <div className="p-8 rounded-2xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-500/30 text-center space-y-4 animate-in zoom-in-95 duration-300">
+                  <div className="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
+                    <CheckCircle2 className="w-8 h-8" />
+                  </div>
+                  <h4 className="text-xl font-bold text-slate-900 dark:text-white">Inquiry Received Successfully</h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto leading-relaxed">
+                    Thank you for reaching out to Nael Technology Solutions. Our technical team at Awash Building
+                    has received your message and will review your specifications shortly.
+                  </p>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setSubmitSuccess(false)}
+                  >
+                    Send Another Message
+                  </Button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <FormField
+                      id="name"
+                      label="Full Name"
+                      required={true}
+                      error={formErrors.name}
+                    >
+                      <Input
+                        id="name"
+                        placeholder="e.g. Abebe Kebede"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        hasError={!!formErrors.name}
+                      />
+                    </FormField>
+
+                    <FormField
+                      id="email"
+                      label="Email Address"
+                      required={true}
+                      error={formErrors.email}
+                    >
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="name@company.com"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        hasError={!!formErrors.email}
+                      />
+                    </FormField>
+                  </div>
+
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <FormField
+                      id="phone"
+                      label="Phone Number"
+                      optionalLabel="Optional"
+                    >
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="+251 9..."
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      />
+                    </FormField>
+
+                    <FormField
+                      id="company"
+                      label="Organization / Building"
+                      optionalLabel="Optional"
+                    >
+                      <Input
+                        id="company"
+                        placeholder="e.g. Commercial Bank / Office Tower"
+                        value={formData.company}
+                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                      />
+                    </FormField>
+                  </div>
+
+                  <FormField
+                    id="service"
+                    label="Primary Engineering Domain"
+                    optionalLabel="Optional"
+                  >
+                    <Select
+                      id="service"
+                      placeholder="Select primary domain of interest..."
+                      options={serviceOptions}
+                      value={formData.service}
+                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                    />
+                  </FormField>
+
+                  <FormField
+                    id="message"
+                    label="Project Scope & Requirements"
+                    required={true}
+                    error={formErrors.message}
+                    helperText="Include facility type, estimated scale, or requested timeline"
+                  >
+                    <Textarea
+                      id="message"
+                      placeholder="Describe your site requirements (e.g. Need 4K IP CCTV surveillance and biometric access for a 5-story office in Bole)..."
+                      rows={4}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      hasError={!!formErrors.message}
+                    />
+                  </FormField>
+
+                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <span className="text-xs text-slate-500 flex items-center gap-1.5">
+                      <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
+                      <span>Confidential engineering consultation</span>
+                    </span>
+
+                    <Button
+                      type="submit"
+                      variant="primary"
+                      size="lg"
+                      isLoading={isSubmitting}
+                      rightIcon={<Send className="w-4 h-4" />}
+                      className="w-full sm:w-auto"
+                    >
+                      Submit Proposal Request
+                    </Button>
+                  </div>
+                </form>
+              )}
+            </Card>
+          </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

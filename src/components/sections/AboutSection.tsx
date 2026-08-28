@@ -1,108 +1,207 @@
 "use client";
 
-import React from "react";
-import { ABOUT_DATA } from "@/data/site-data";
+import React, { useState } from "react";
+import Image from "next/image";
+import { ABOUT_DATA, SITE_METADATA } from "@/data/site-data";
 import { IconResolver } from "@/components/common/IconResolver";
-import { Target, Compass, Award } from "lucide-react";
+import { ArrowRight, CheckCircle2, MapPin, ShieldCheck, X } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { Container } from "@/components/ui/Container";
 
 export const AboutSection: React.FC = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleContactScroll = () => {
+    setModalOpen(false);
+    const element = document.getElementById("contact");
+    if (element) {
+      const navOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
-    <section id="about" className="py-24 bg-slate-900/50 relative overflow-hidden border-t border-slate-800/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <span className="text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
-            About Us
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            {ABOUT_DATA.heading}
-          </h2>
-          <p className="text-base sm:text-lg text-slate-400 leading-relaxed">
-            {ABOUT_DATA.description}
-          </p>
-        </div>
+    <section id="about" className="py-24 bg-slate-50 dark:bg-slate-950 relative overflow-hidden border-t border-slate-200 dark:border-slate-900 transition-colors">
+      {/* Background radial glow */}
+      <div className="absolute top-1/3 right-0 w-96 h-96 bg-blue-600/10 blur-[130px] rounded-full pointer-events-none" />
 
-        {/* Vision & Mission Cards */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          <div className="p-8 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl relative overflow-hidden group hover:border-blue-500/40 transition-all">
-            <div className="w-12 h-12 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-6">
-              <Compass className="w-6 h-6" />
-            </div>
-            <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
-              <span>Our Vision</span>
-            </h3>
-            <p className="text-slate-300 leading-relaxed text-sm sm:text-base">
-              {ABOUT_DATA.vision}
-            </p>
-          </div>
+      <Container size="xl" className="relative z-10">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Left Column: Visual Image with Floating Experience Card */}
+          <div className="lg:col-span-5 relative">
+            <div className="relative rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl shadow-blue-500/10 group aspect-[4/3] sm:aspect-square lg:aspect-[4/5]">
+              <Image
+                src="/images/about-engineers.jpg"
+                alt="Nael Technology Solutions Certified Systems Engineers inspecting network infrastructure"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent dark:from-slate-950 dark:via-slate-950/30 dark:to-transparent" />
 
-          <div className="p-8 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl relative overflow-hidden group hover:border-blue-500/40 transition-all">
-            <div className="w-12 h-12 rounded-xl bg-cyan-600/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-6">
-              <Target className="w-6 h-6" />
-            </div>
-            <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
-              <span>Our Mission</span>
-            </h3>
-            <p className="text-slate-300 leading-relaxed text-sm sm:text-base">
-              {ABOUT_DATA.mission}
-            </p>
-          </div>
-        </div>
-
-        {/* 3 Core Value Pillars */}
-        <div className="mb-12">
-          <div className="text-center mb-10">
-            <h3 className="text-2xl font-bold text-white tracking-tight">
-              Our Core Strategic Pillars
-            </h3>
-            <p className="text-sm text-slate-400 mt-2">
-              Principles guiding every engineering and systems integration project
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {ABOUT_DATA.pillars.map((pillar, idx) => (
-              <div
-                key={idx}
-                className="p-6 sm:p-8 rounded-2xl bg-slate-900/80 border border-slate-800/80 hover:bg-slate-900 hover:border-blue-500/30 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
-                    <IconResolver name={pillar.icon} className="w-6 h-6" />
-                  </div>
-                  <h4 className="text-lg font-bold text-white">{pillar.title}</h4>
-                  <p className="text-sm text-slate-300 leading-relaxed">
-                    {pillar.description}
-                  </p>
-                </div>
+              {/* Verified Location Stamp */}
+              <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-950/80 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 shadow-sm">
+                <MapPin className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                <span>Addis Ababa, Ethiopia</span>
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Quality Commitment Banner */}
-        <div className="p-8 rounded-2xl bg-gradient-to-r from-blue-950/60 via-slate-900 to-slate-900 border border-blue-500/20 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-600/30">
-              <Award className="w-6 h-6" />
+              {/* Bottom In-image Description */}
+              <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-white/95 dark:bg-slate-950/90 backdrop-blur-md border border-slate-200 dark:border-slate-800/80 shadow-lg">
+                <div className="flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400 mb-1">
+                  <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                  <span>Certified Field Engineers</span>
+                </div>
+                <p className="text-xs text-slate-700 dark:text-slate-300">
+                  Turnkey installation, Fluke testing, and 24/7 preventative maintenance across Ethiopia.
+                </p>
+              </div>
             </div>
-            <div>
-              <h4 className="text-base sm:text-lg font-bold text-white">
-                Standards-Compliant Systems Integration
-              </h4>
-              <p className="text-xs sm:text-sm text-slate-400">
-                All CCTV, fire alarm, fiber optic, and data center installations conform to strict Ethiopian safety and international engineering benchmarks.
+          </div>
+
+          {/* Right Column: Company Overview & 3 Core Pillars */}
+          <div className="lg:col-span-7 space-y-8">
+            <div className="space-y-4">
+              <Badge variant="primary" size="md">
+                About Nael Technology Solutions
+              </Badge>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.15] transition-colors">
+                Ethiopia&apos;s Dedicated <span className="text-gradient-accent">Systems Integrator</span>
+              </h2>
+              <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 font-light leading-relaxed transition-colors">
+                {ABOUT_DATA.description}
               </p>
             </div>
+
+            {/* Strategic Pillars Grid */}
+            <div className="grid sm:grid-cols-3 gap-4 pt-2">
+              {ABOUT_DATA.pillars.map((pillar, idx) => (
+                <div
+                  key={idx}
+                  className="p-4 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 hover:border-blue-500/30 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all space-y-2.5 shadow-sm"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-blue-600/15 border border-blue-500/25 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                    <IconResolver name={pillar.icon} className="w-4 h-4" />
+                  </div>
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight">{pillar.title}</h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{pillar.description}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <Button
+                variant="primary"
+                size="md"
+                onClick={() => setModalOpen(true)}
+                rightIcon={<ArrowRight className="w-4 h-4" />}
+              >
+                About Nael
+              </Button>
+              <Button
+                variant="outline"
+                size="md"
+                onClick={handleContactScroll}
+              >
+                Schedule Site Survey
+              </Button>
+            </div>
           </div>
-          <a
-            href="#contact"
-            className="whitespace-nowrap px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold transition-colors"
-          >
-            Work With Us
-          </a>
         </div>
-      </div>
+      </Container>
+
+      {/* About Detail Modal */}
+      {modalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setModalOpen(false);
+          }}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="relative w-full max-w-2xl rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-200">
+            {/* Header */}
+            <div className="p-6 md:p-8 bg-gradient-to-r from-slate-50 via-white to-blue-50/50 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/50 border-b border-slate-200 dark:border-slate-800 relative">
+              <button
+                onClick={() => setModalOpen(false)}
+                className="absolute top-5 right-5 p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+                aria-label="Close dialog"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <Badge variant="cyan" size="sm" className="mb-2">
+                Company Profile
+              </Badge>
+              <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                {SITE_METADATA.name}
+              </h3>
+            </div>
+
+            {/* Body */}
+            <div className="p-6 md:p-8 space-y-6 overflow-y-auto">
+              <div>
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-2">
+                  Company Overview
+                </h4>
+                <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
+                  {ABOUT_DATA.description}
+                </p>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-2">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                    Our Vision
+                  </h4>
+                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{ABOUT_DATA.vision}</p>
+                </div>
+                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-2">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                    Our Mission
+                  </h4>
+                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{ABOUT_DATA.mission}</p>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-3">
+                  Core Strategic Pillars
+                </h4>
+                <div className="space-y-2.5">
+                  {ABOUT_DATA.pillars.map((pillar, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200"
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <strong className="text-slate-900 dark:text-white block font-semibold">{pillar.title}</strong>
+                        <span className="text-slate-600 dark:text-slate-400">{pillar.description}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="p-6 bg-slate-50 dark:bg-slate-950/80 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
+              <span className="text-xs text-slate-500">Awash Building, Addis Ababa</span>
+              <Button variant="primary" size="sm" onClick={handleContactScroll}>
+                Contact Technical Desk
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

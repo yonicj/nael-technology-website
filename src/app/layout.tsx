@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -46,15 +47,44 @@ export const metadata: Metadata = {
   },
 };
 
+const antiFoucScript = `
+  (function() {
+    try {
+      var saved = localStorage.getItem('nael-theme');
+      var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var effective = saved === 'light' ? 'light' : (saved === 'dark' ? 'dark' : (saved === 'system' ? (systemDark ? 'dark' : 'light') : 'dark'));
+      var root = document.documentElement;
+      if (effective === 'dark') {
+        root.classList.add('dark');
+        root.classList.remove('light');
+      } else {
+        root.classList.remove('dark');
+        root.classList.add('light');
+      }
+      root.setAttribute('data-theme', effective);
+      root.style.colorScheme = effective;
+    } catch(e) {}
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} scroll-smooth antialiased dark`}>
-      <body className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col">
-        {children}
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} scroll-smooth antialiased dark`}
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: antiFoucScript }} />
+      </head>
+      <body className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans flex flex-col transition-colors duration-200">
+        <ThemeProvider defaultTheme="dark">
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
